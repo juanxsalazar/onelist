@@ -3,7 +3,12 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
+token = params[:token]
+if token.present?
+  @lists = List.where("token ilike ?","%#{token}%")
+else
     @lists = List.all
+end
 
     render json: @lists
   end
